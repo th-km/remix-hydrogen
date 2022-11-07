@@ -20,9 +20,25 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "eslint": "^8.23.1",
+    "prettier": "^2.7.1",
     "typescript": "^4.7.4"
   },
   "engines": {
     "node": ">=14"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "tabWidth": 2,
+    "printWidth": 100,
+    "trailingComma": "none"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@remix-run/eslint-config",
+      "@remix-run/eslint-config/node",
+      "prettier"
+    ]
   }
 }
