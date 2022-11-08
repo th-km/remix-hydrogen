@@ -10,7 +10,7 @@ const client = createStorefrontClient({
 })
 
 /*
- * Endpoints
+ * Endpoint
  * https://<SHOP_NAME>.myshopify.com/api/<API_VERSION>/graphql.json
  */
 

@@ -1,15 +1,46 @@
-import type { MetaFunction } from '@remix-run/node'
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
-import styles from './styles/app.css'
+import { LinksFunction, MetaFunction } from '@remix-run/node'
+import {
+  Link,
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData
+} from '@remix-run/react'
+import type { Shop } from '~/types/shopify'
+import { fetchStorefrontAPI } from '~/lib/shopify'
+import { SHOP_QUERY } from '~/lib/queries'
+import styles from '~/styles/app.css'
 
-export const meta: MetaFunction = () => ({
+export const meta: MetaFunction<typeof loader> = ({ data }) => ({
   charset: 'utf-8',
-  title: 'New Remix App',
-  viewport: 'width=device-width,initial-scale=1'
+  viewport: 'width=device-width,initial-scale=1',
+  title: data.shop.name,
+  description: data.shop.description
 })
 
-export function links() {
-  return [{ rel: 'stylesheet', href: styles }]
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]
+
+export async function loader() {
+  return await fetchStorefrontAPI({ query: SHOP_QUERY })
+}
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  const { shop } = useLoaderData<typeof loader>() as Shop
+
+  return (
+    <div>
+      <header className="px-6 py-8 bg-slate-100">
+        <Link to="/">
+          <h1 className="text-xl font-medium">{shop.name}</h1>
+        </Link>
+      </header>
+
+      <main className="p-6">{children}</main>
+    </div>
+  )
 }
 
 export default function App() {
@@ -20,7 +51,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Layout>
+          <Outlet />
+        </Layout>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
