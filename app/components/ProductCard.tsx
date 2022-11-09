@@ -1,25 +1,24 @@
 import { Image, Money } from '@shopify/hydrogen-react'
+import { Product } from '@shopify/hydrogen-react/storefront-api-types'
 import { Link } from '@remix-run/react'
-import type { ProductItem } from '~/types/shopify'
 
-type Props = {
-  product: ProductItem
-}
-
-export function ProductCard({ product }: Props) {
+export function ProductCard({ product }: { product: Product }) {
   const { price, compareAtPrice, image } = product.variants?.nodes[0]
-  const isDiscounted = compareAtPrice?.amount > price?.amount
+  const isDiscounted = compareAtPrice && compareAtPrice.amount > price.amount
 
   return (
     <li>
       <Link to={`/products/${product.handle}`}>
-        <Image data={image} alt={product.title} />
+        {image ? <Image data={image} alt={product.title} /> : null}
+
         <h3>{product.title}</h3>
 
         <div className="flex gap-4">
           <Money data={price} />
 
-          {isDiscounted && <Money className="line-through text-black/50" data={compareAtPrice} />}
+          {isDiscounted ? (
+            <Money className="line-through text-black/50" data={compareAtPrice} />
+          ) : null}
         </div>
       </Link>
     </li>

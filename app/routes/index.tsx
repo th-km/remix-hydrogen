@@ -1,15 +1,15 @@
 import { Link, useLoaderData } from '@remix-run/react'
 import { Image } from '@shopify/hydrogen-react'
-import type { Collections } from '~/types/shopify'
+import { CollectionConnection } from '@shopify/hydrogen-react/storefront-api-types'
 import { fetchStorefrontAPI } from '~/lib/shopify'
 import { COLLECTIONS_QUERY } from '~/lib/queries'
 
-export async function loader() {
+export async function loader(): Promise<{ collections: CollectionConnection }> {
   return await fetchStorefrontAPI({ query: COLLECTIONS_QUERY })
 }
 
 export default function Index() {
-  const { collections } = useLoaderData<typeof loader>() as Collections
+  const { collections } = useLoaderData<typeof loader>()
 
   return (
     <div>
@@ -19,7 +19,7 @@ export default function Index() {
         {collections.nodes.map(({ id, title, handle, image }) => (
           <li key={id}>
             <Link to={`/collections/${handle}`} className="space-y-2">
-              <Image data={image} alt={title} />
+              {image ? <Image data={image} alt={title} /> : null}
               <h2>{title}</h2>
             </Link>
           </li>

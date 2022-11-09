@@ -9,7 +9,7 @@ import {
   ScrollRestoration,
   useLoaderData
 } from '@remix-run/react'
-import type { Shop } from '~/types/shopify'
+import { Shop } from '@shopify/hydrogen-react/storefront-api-types'
 import { fetchStorefrontAPI } from '~/lib/shopify'
 import { SHOP_QUERY } from '~/lib/queries'
 import styles from '~/styles/app.css'
@@ -23,12 +23,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => ({
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]
 
-export async function loader() {
+export async function loader(): Promise<{ shop: Shop }> {
   return await fetchStorefrontAPI({ query: SHOP_QUERY })
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { shop } = useLoaderData<typeof loader>() as Shop
+  const { shop } = useLoaderData<typeof loader>()
 
   return (
     <div>

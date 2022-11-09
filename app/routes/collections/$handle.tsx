@@ -1,10 +1,12 @@
 import { LoaderArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import type { Collection } from '~/types/shopify'
+import { Collection } from '@shopify/hydrogen-react/storefront-api-types'
 import { fetchStorefrontAPI } from '~/lib/shopify'
 import { COLLECTION_DETAILS_QUERY } from '~/lib/queries'
 import { ProductCard } from '~/components/ProductCard'
 
+// TODO: figure out how to type this
+// Type 'SerializeObject<UndefinedToOptional<Product>>' is not assignable to type 'Product'.
 export async function loader({ params }: LoaderArgs) {
   return await fetchStorefrontAPI({
     query: COLLECTION_DETAILS_QUERY,
@@ -13,7 +15,7 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 export default function CollectionPage() {
-  const { collection } = useLoaderData<typeof loader>() as Collection
+  const { collection }: { collection: Collection } = useLoaderData<typeof loader>()
 
   return (
     <div>

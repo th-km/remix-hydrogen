@@ -1,9 +1,9 @@
-import { ProductItem } from '~/types/shopify'
+import { Product } from '@shopify/hydrogen-react/storefront-api-types'
 
-type Props = {
-  product: ProductItem
-}
-
-export function ProductDetails({ product }: Props) {
-  return <div>{product.title}</div>
+export function ProductDetails({ product }: { product: Product }) {
+  return (
+    <div>
+      <h2 className="font-medium text-2xl">{product.title}</h2>
+    </div>
+  )
 }
