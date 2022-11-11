@@ -1,5 +1,5 @@
 import { useProduct, Money } from '@shopify/hydrogen-react'
-import { OptionRadio } from './OptionRadio'
+import { OptionRadio } from '~/components/OptionRadio'
 
 export function ProductForm() {
   const { options, selectedVariant } = useProduct()
