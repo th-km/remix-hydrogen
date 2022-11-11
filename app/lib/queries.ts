@@ -51,6 +51,7 @@ export const PRODUCT_QUERY = gql`
       id
       title
       vendor
+      descriptionHtml
       media(first: 7) {
         nodes {
           ...MediaFields

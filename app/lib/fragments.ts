@@ -2,6 +2,7 @@ import { gql } from '~/lib/shopify'
 
 export const MEDIA_FRAGMENT = gql`
   fragment MediaFields on Media {
+    __typename
     mediaContentType
     alt
     previewImage {
