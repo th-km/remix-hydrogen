@@ -12,7 +12,6 @@ type Props = {
 export function CartDetails({ onClose }: Props) {
   const fetcher = useFetcher()
   const { lines } = useCart()
-  console.log(lines)
 
   if (lines?.length === 0) {
     return <CartEmpty onClose={onClose} />
