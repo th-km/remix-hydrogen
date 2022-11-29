@@ -19,15 +19,15 @@ export function CartLineItem({ line }: Props) {
           </div>
         )}
 
-        <div className="flex gap-6">
-          <div className="flex flex-col items-start gap-4">
+        <div className="flex gap-4">
+          <div className="flex flex-col items-start gap-2">
             <h3 className="font-medium">
               <Link to={`/products/${merchandise.product.handle}`}>
                 {merchandise.product.title}
               </Link>
             </h3>
 
-            <div className="flex flex-col mt-2">
+            <div className="flex flex-col">
               {(merchandise.selectedOptions || []).map(option => (
                 <span key={option.name} className="text-sm text-gray-500">
                   {option.name}: {option.value}

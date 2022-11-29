@@ -20,8 +20,8 @@ export function CartDetails({ onClose }: Props) {
 
   return (
     <fetcher.Form className="flex flex-col h-[calc(100vh-5.75rem)]">
-      <div aria-labelledby="cart-contents" className="p-6 overflow-auto">
-        <ul className="flex flex-col gap-6">
+      <div aria-labelledby="cart-contents" className="overflow-auto p-6">
+        <ul className="flex flex-col gap-10">
           {lines?.map(line => (
             <CartLineItem key={line.id} line={line} />
           ))}
