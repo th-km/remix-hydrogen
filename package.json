@@ -11,7 +11,8 @@
     "@remix-run/node": "^1.7.5",
     "@remix-run/react": "^1.7.5",
     "@remix-run/serve": "^1.7.5",
-    "@shopify/hydrogen-react": "^2022.10.1",
+    "@shopify/hydrogen-react": "^2022.10.4",
+    "ariakit": "^2.0.0-next.41",
     "isbot": "^3.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

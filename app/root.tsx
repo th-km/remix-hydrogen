@@ -1,6 +1,5 @@
 import { LinksFunction, MetaFunction } from '@remix-run/node'
 import {
-  Link,
   Links,
   LiveReload,
   Meta,
@@ -10,8 +9,10 @@ import {
   useLoaderData
 } from '@remix-run/react'
 import { Shop } from '@shopify/hydrogen-react/storefront-api-types'
-import { fetchStorefrontAPI } from '~/lib/shopify'
+import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react'
+import { fetchStorefrontAPI, __publicConfig } from '~/lib/shopify'
 import { SHOP_QUERY } from '~/lib/queries'
+import { Header } from '~/components/Header'
 import styles from '~/styles/app.css'
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => ({
@@ -23,21 +24,16 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => ({
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]
 
-export async function loader(): Promise<{ shop: Shop }> {
+export async function loader() {
   return await fetchStorefrontAPI({ query: SHOP_QUERY })
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { shop } = useLoaderData<typeof loader>()
+  const { shop } = useLoaderData() as { shop: Shop }
 
   return (
     <div>
-      <header className="px-6 py-8 bg-slate-100">
-        <Link to="/">
-          <h1 className="text-xl font-medium">{shop.name}</h1>
-        </Link>
-      </header>
-
+      <Header shop={shop} />
       <main className="p-6">{children}</main>
     </div>
   )
@@ -51,9 +47,13 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout>
-          <Outlet />
-        </Layout>
+        <ShopifyProvider shopifyConfig={__publicConfig}>
+          <CartProvider>
+            <Layout>
+              <Outlet />
+            </Layout>
+          </CartProvider>
+        </ShopifyProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

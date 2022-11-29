@@ -1,4 +1,4 @@
-import { useProduct, Money } from '@shopify/hydrogen-react'
+import { useProduct, Money, AddToCartButton } from '@shopify/hydrogen-react'
 import { OptionRadio } from '~/components/OptionRadio'
 
 export function ProductForm() {
@@ -28,15 +28,13 @@ export function ProductForm() {
 
         <div className="mt-10">
           {soldOut ? (
-            <span className="text-black text-center py-3 px-6 border rounded-sm leading-none ">
+            <span className="py-3 px-6 border rounded-sm text-black text-center leading-none">
               Sold out
             </span>
           ) : (
-            <button>
-              <span className="bg-black text-white inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none w-full border">
-                Buy
-              </span>
-            </button>
+            <AddToCartButton className="inline-block max-w-xl py-3 px-6 border rounded-sm text-center leading-none font-medium bg-black text-white">
+              Buy
+            </AddToCartButton>
           )}
         </div>
       </div>
