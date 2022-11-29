@@ -1,10 +1,16 @@
 // https://shopify.dev/custom-storefronts/hydrogen/alternate-frameworks
 import { createStorefrontClient } from '@shopify/hydrogen-react'
 
+export const __publicConfig = {
+  storefrontToken: '3b580e70970c4528da70c98e097c2fa0',
+  storeDomain: 'hydrogen-preview',
+  storefrontApiVersion: '2022-10',
+  locale: 'en'
+}
+
 const client = createStorefrontClient({
-  // privateStorefrontToken: process.env.STOREFRONT_TOKEN,
-  publicStorefrontToken: process.env.PUBLIC_STOREFRONT_TOKEN,
-  storeDomain: process.env.PUBLIC_STORE_DOMAIN || '',
+  publicStorefrontToken: __publicConfig.storefrontToken,
+  storeDomain: __publicConfig.storeDomain,
   storefrontApiVersion: '2022-10',
   contentType: 'json'
 })
